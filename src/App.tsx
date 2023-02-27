@@ -1,10 +1,13 @@
-import Router from './routes';
+import { UserProvider } from './providers/useContext/useContext';
+import Router from './routes/routes';
 import { GlobalStyles } from './styles/global';
 
 const App = () => (
   <>
     <GlobalStyles />
-    <Router />
+    <UserProvider>
+      <Router />
+    </UserProvider>
   </>
 );
 
