@@ -17,27 +17,27 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
   const navigate = useNavigate();
 
-  const userLoad = async () => {
-    const token = localStorage.getItem('@TOKEN');
-    if (token) {
-      try {
-        const response = await api.get('/user', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setUser(response.data);
-        navigate('/dashboard');
-      } catch (error) {
-        console.log(error);
-        localStorage.removeItem('@TOKEN');
-      }
-    }
-  };
+  // const userLoad = async () => {
+  //   const token = localStorage.getItem('@TOKEN');
+  //   if (token) {
+  //     try {
+  //       const response = await api.get('/user', {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       });
+  //       setUser(response.data);
+  //       navigate('/dashboard');
+  //     } catch (error) {
+  //       console.log(error);
+  //       localStorage.removeItem('@TOKEN');
+  //     }
+  //   }
+  // };
 
-  useEffect(() => {
-    userLoad();
-  }, []);
+  // useEffect(() => {
+  //   userLoad();
+  // }, []);
 
   const userRegister = async (data: IRegisterFormValues) => {
     try {

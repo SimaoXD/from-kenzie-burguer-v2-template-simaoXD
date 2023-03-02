@@ -12,31 +12,35 @@ export const CartContext = createContext({} as ICartContext);
 
 export const CartProvider = ({ children }: CartProviderProps) => {
   const [products, setProducts] = useState<iProducts[]>([]);
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem('@TOKEN')
+  );
   const navigate = useNavigate();
-  const token: any = localStorage.getItem('@TOKEN');
 
-  // useEffect(() => {
-  //   const getProducts = async () => {
-  //     try {
-  //       const response = await api.get('products', {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-  //       setProducts(response.data);
-  //     } catch (error) {
-  //       console.error(error);
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await api.get('products', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setProducts(response.data);
+      } catch (error) {
+        console.error(error);
 
-  //       navigate('/');
-  //     }
-  //   };
+        alert(
+          'Ocorreu um erro ao buscar os produtos. Tente novamente mais tarde.'
+        );
+      }
+    };
 
-  //   if (token) {
-  //     getProducts();
-  //   } else {
-  //     navigate('/');
-  //   }
-  // }, [token, navigate]);
+    if (token) {
+      getProducts();
+    } else {
+      navigate('/login', { state: { from: 'cart' } });
+    }
+  }, [token, navigate]);
 
   return (
     <CartContext.Provider value={{ products, setProducts }}>

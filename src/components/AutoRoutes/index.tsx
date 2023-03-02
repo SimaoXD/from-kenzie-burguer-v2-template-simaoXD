@@ -7,7 +7,7 @@ const AutoRoutes = () => {
   return (
     <div>
     {
-            !token ? <Outlet /> : <Navigate to='/'/>
+            token ? <Outlet /> : <Navigate to='/'/>
 
          }
     </div>
