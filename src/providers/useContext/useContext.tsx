@@ -1,8 +1,13 @@
 import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IUserContext, IDefaultProviderProps, IUser, IRegisterFormValues, ILoginFormValues } from './@types';
+import {
+  IUserContext,
+  IDefaultProviderProps,
+  IUser,
+  IRegisterFormValues,
+  ILoginFormValues,
+} from './@types';
 import { api } from '../../services/api';
-
 
 export const UserContext = createContext({} as IUserContext);
 
@@ -34,14 +39,14 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     userLoad();
   }, []);
 
-  const userRegister = async (formData: IRegisterFormValues) => {
+  const userRegister = async (data: IRegisterFormValues) => {
     try {
       setLoading(true);
-      const responde = api.post('/users', formData);
+      const responde = await api.post('/users', data);
       setUser(responde.data.user);
       localStorage.setItem('@TOKEN', responde.data.token);
       console.log('Cadastro com sucesso');
-      navigate('/dashboard');
+      navigate('/');
     } catch (error) {
       console.log(error);
     } finally {
@@ -49,14 +54,15 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     }
   };
 
-  const userLogin = async (formData: ILoginFormValues) => {
+  const userLogin = async (data: ILoginFormValues) => {
     try {
       setLoading(true);
-      const responde = api.post('/users/login', formData);
-      setUser(responde.data.user);
-      localStorage.setItem('@TOKEN', responde.data.token);
+      const response = await api.post('/login', data);
+      console.log(response.data);
+      localStorage.setItem('@TOKEN', response.data.accessToken);
+      localStorage.setItem('@USER', JSON.stringify(response.data.user.id));
       console.log('Login com sucesso');
-      navigate('/dashboard');
+      navigate('/shop');
     } catch (error) {
       console.log(error);
     } finally {

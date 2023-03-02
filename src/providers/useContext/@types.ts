@@ -1,5 +1,8 @@
+import {ReactNode} from "react"
+
+
 export interface IDefaultProviderProps {
-  children: React.ReactNode;
+  children:ReactNode;
 }
 
 export interface IUser {
@@ -12,6 +15,7 @@ export interface IRegisterFormValues {
   name: string;
   email: string;
   password: string;
+  passwordConfirmed: string;
 }
 
 export interface ILoginFormValues {
@@ -26,4 +30,28 @@ export interface IUserContext {
   userRegister: (formData: IRegisterFormValues) => Promise<void>;
   userLogin: (formData: ILoginFormValues) => Promise<void>;
   userLogout: () => void;
+}
+
+
+export interface iProducts {
+ id: number;
+ name: string;
+ category: string;
+ price: number;
+ img: string;
+
+}
+
+export interface ICartContext{
+  products: iProducts[];
+  setProducts: (products: iProducts[]) => void;
+}
+
+export interface iProductsProps{
+  product: iProducts
+}
+
+
+export interface iCartModal{
+  onClose:() => any;
 }
