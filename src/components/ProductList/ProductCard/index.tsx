@@ -9,7 +9,6 @@ import { iProducts } from '../../../providers/useContext/@types';
 export const ProductCard = () => {
   const { products } = useContext(CartContext);
   const { cart, setCart } = useContext(CarrinhoContext);
-  console.log(products);
 
   const handleAddToCart = (item: iProducts) => {
     setCart([...cart, item]);

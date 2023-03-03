@@ -40,7 +40,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     } else {
       navigate('/login', { state: { from: 'cart' } });
     }
-  }, [token, navigate]);
+  }, [token]);
 
   return (
     <CartContext.Provider value={{ products, setProducts }}>
